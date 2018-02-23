@@ -1,1 +1,6 @@
+## Ignore the data folder - never upload my own private data
 data/
+
+## Ignore the current session (if exists)
+session
+
