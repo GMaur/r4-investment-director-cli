@@ -6,7 +6,7 @@ As of 2018-02, This project is still very early alpha phase, therefore we value 
 
 For this purpose, all data is saved into a session folder plus a file (`session`) to store all the information.
 
-Any invocation can read/write any information on the session, effectively making it a global state container[1].  It is not ideal, but given the system is not production-ready and the operator has full access to the data (see 'limitations')
+Any invocation can read/write any information on the session, effectively making it a global state container[1].  It is not ideal, but given the system is not production-ready and the operator has full access to the data (see 'limitations'), it is an acceptable trade-off.
 
 Keeping the state at the boundaries helps the services be as stateless as possible.
 
