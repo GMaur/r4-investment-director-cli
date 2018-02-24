@@ -11,6 +11,14 @@ Think of this as glue to connect the underlaying building blocks.
   * [R4 automator](https://github.com/GMaur/r4-automator): connects to the broker to make read and write operations
   * [Robot advisor](https://github.com/GMaur/robot-advisor): make decisions on your investments
 
+## Technical notes
+
+See TECHNICALNOTES.md
+
+## Limitations / Hypotheses
+
+  * This is a CLI application, to be used by a single user that has access to sensitive information. It is the user's (and not the project's) duty to protect that information.
+ 
 ## Contributing
 
 This project is open to contributions.
