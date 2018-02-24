@@ -6,6 +6,8 @@ The dependencies have been written [API-first][api-first], therefore they're not
 
 Think of this as glue to connect the underlaying building blocks.
 
+**Warning**: this project may be deprecated at any time. It is only a first client to connect to the underlaying services.
+
 ## Necessary services
 
   * [R4 automator](https://github.com/GMaur/r4-automator): connects to the R4 broker to make read and write operations
