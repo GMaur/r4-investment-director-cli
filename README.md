@@ -2,7 +2,7 @@
 
 Eases the orchestration with the [Renta4 automator](https://github.com/GMaur/r4-automator). A part of [Robot Advisor](https://github.com/RobotAdvisor) (GMaur's Investment Ideas)
 
-The dependencies have been written API-first, therefore they're not very usable for a person, but for systems. This project aims to connect the different operations of both services.
+The dependencies have been written [API-first][api-first], therefore they're not very usable for a person, but for systems. This project aims to connect the different operations of both services.
 
 Think of this as glue to connect the underlaying building blocks.
 
@@ -36,3 +36,5 @@ project, please contact us (message / issue).
 ### Reaching us
 
 Please send a message (e.g., [twitter](https://twitter.com/alvarobiz)) or an [issue](https://github.com/GMaur/r4-investment-director-cli/issues)
+
+[api-first]: https://medium.com/adobe-io/three-principles-of-api-first-design-fa6666d9f694
