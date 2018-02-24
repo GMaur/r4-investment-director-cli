@@ -36,6 +36,7 @@ case "$1" in
 		echo "session in $FOLDER"
         ;;
     login )
+        echo "if you wish to proceed, go to the IDE to manually confirm this request"
 		curl ${r4automator}/login -XPOST -H "Content-Type: application/json" -d '{"username":"AzureDiamond", "password": "hunter2", "nif": "Cthon98"}'
         ;;
     2fa )
@@ -54,6 +55,7 @@ case "$1" in
         cat ${FOLDER}/rebalance_orders.json | jq "."
          ;;
     makeoperations )
+        echo "if you wish to proceed, go to the IDE to manually confirm this request"
 		curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_orders.json
         ;;
     endsession )
