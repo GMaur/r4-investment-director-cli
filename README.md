@@ -8,7 +8,7 @@ Think of this as glue to connect the underlaying building blocks.
 
 ## Necessary services
 
-  * [R4 automator](https://github.com/GMaur/r4-automator): connects to the broker to make read and write operations
+  * [R4 automator](https://github.com/GMaur/r4-automator): connects to the R4 broker to make read and write operations
   * [Robot advisor](https://github.com/GMaur/robot-advisor): make decisions on your investments
 
 ## Technical notes
