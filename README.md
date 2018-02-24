@@ -18,6 +18,12 @@ See TECHNICALNOTES.md
 ## Limitations / Hypotheses
 
   * This is a CLI application, to be used by a single user that has access to sensitive information. It is the user's (and not the project's) duty to protect that information.
+
+## Scope
+
+### Out of scope
+
+  * This project can only connect to a single broker (currently, r4-automator). It is not expected to comply with the API of any other broker
  
 ## Contributing
 
