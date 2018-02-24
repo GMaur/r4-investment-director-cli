@@ -6,6 +6,11 @@ The dependencies have been written API-first, therefore they're not very usable 
 
 Think of this as glue to connect the underlaying building blocks.
 
+## Necessary services
+
+  * [R4 automator](https://github.com/GMaur/r4-automator): connects to the broker to make read and write operations
+  * [Robot advisor](https://github.com/GMaur/robot-advisor): make decisions on your investments
+
 ## Contributing
 
 This project is open to contributions.
