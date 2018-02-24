@@ -15,7 +15,7 @@ Think of this as glue to connect the underlaying building blocks.
 
 ## Technical notes
 
-See TECHNICALNOTES.md
+See [TECHNICALNOTES.md](TECHNICALNOTES.md)
 
 ## Limitations / Hypotheses
 
