@@ -7,17 +7,19 @@ r4automator="localhost:8080"
 robot_advisor="localhost:8081"
 ### END_CONFIG
 
+session="./session"
+
 function create_new_session {
     FOLDER="data/$(date "+%Y-%m-%dT%H%M%S")"
     mkdir -p $FOLDER
-    rm -f session
-    touch session
-    echo "FOLDER=$FOLDER" >> session
-    echo "USER=$USER" >> session
+    rm -f "$session"
+    touch "$session"
+    echo "FOLDER=$FOLDER" >> "$session"
+    echo "USER=$USER" >> "$session"
 }
 
 function read_session {
-    file="./session"
+    file="$session"
     
     if [ -f "$file" ]
     then
@@ -65,7 +67,7 @@ case "$1" in
         curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_orders.json
         ;;
     endsession )
-        rm ./session
+        rm ./"$session"
         ;;
     * )
         echo "could not understand command $1"
