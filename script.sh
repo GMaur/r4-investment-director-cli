@@ -7,14 +7,19 @@ r4automator="localhost:8080"
 robot_advisor="localhost:8081"
 ### END_CONFIG
 
+session="./session"
+
 function create_new_session {
     FOLDER="data/$(date "+%Y-%m-%dT%H%M%S")"
     mkdir -p $FOLDER
-    echo "FOLDER=$FOLDER" > session
+    rm -f "$session"
+    touch "$session"
+    echo "FOLDER=$FOLDER" >> "$session"
+    echo "USER=$USER" >> "$session"
 }
 
 function read_session {
-    file="./session"
+    file="$session"
     
     if [ -f "$file" ]
     then
@@ -32,8 +37,11 @@ read_session
 set -e
 case "$1" in
     newsession )
+        default_user="ideal"
+        read -p "Specify the name of the user [$default_user]: " USER
+        USER=${USER:-$default_user}
         create_new_session
-        echo "session in $FOLDER"
+        echo "session for user $USER in $FOLDER"
         ;;
     login )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
@@ -50,7 +58,8 @@ case "$1" in
         cat ${FOLDER}/portfolio.json | jq "."
         ;;
     rebalance )
-        ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/ideal.json > ${FOLDER}/rebalance_request.json
+        echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
+        ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/$USER.json > ${FOLDER}/rebalance_request.json
         curl ${robot_advisor}/rebalance -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_request.json -o ${FOLDER}/rebalance_orders.json
         cat ${FOLDER}/rebalance_orders.json | jq "."
          ;;
@@ -59,7 +68,7 @@ case "$1" in
         curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_orders.json
         ;;
     endsession )
-        rm ./session
+        rm ./"$session"
         ;;
     * )
         echo "could not understand command $1"
