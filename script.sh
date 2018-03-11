@@ -37,10 +37,11 @@ read_session
 set -e
 case "$1" in
     newsession )
-        read -p "Specify the name of the user [ideal]: " USER
-        USER=${USER:-ideal}
+        default_user="ideal"
+        read -p "Specify the name of the user [$default_user]: " USER
+        USER=${USER:-$default_user}
         create_new_session
-        echo "session in $FOLDER"
+        echo "session for user $USER in $FOLDER"
         ;;
     login )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
