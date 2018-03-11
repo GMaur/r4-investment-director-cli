@@ -10,7 +10,10 @@ robot_advisor="localhost:8081"
 function create_new_session {
     FOLDER="data/$(date "+%Y-%m-%dT%H%M%S")"
     mkdir -p $FOLDER
-    echo "FOLDER=$FOLDER" > session
+    rm -f session
+    touch session
+    echo "FOLDER=$FOLDER" >> session
+    echo "USER=$USER" >> session
 }
 
 function read_session {
@@ -32,6 +35,8 @@ read_session
 set -e
 case "$1" in
     newsession )
+        read -p "Specify the name of the user [ideal]: " USER
+        USER=${USER:-ideal}
         create_new_session
         echo "session in $FOLDER"
         ;;
@@ -50,7 +55,8 @@ case "$1" in
         cat ${FOLDER}/portfolio.json | jq "."
         ;;
     rebalance )
-        ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/ideal.json > ${FOLDER}/rebalance_request.json
+        echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
+        ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/$USER.json > ${FOLDER}/rebalance_request.json
         curl ${robot_advisor}/rebalance -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_request.json -o ${FOLDER}/rebalance_orders.json
         cat ${FOLDER}/rebalance_orders.json | jq "."
          ;;
