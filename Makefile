@@ -22,7 +22,9 @@ parse-portfolio:
 
 .PHONY: rebalance
 rebalance:
-	./script.sh rebalance
+	echo "This operation is not yet supported. Please use contribute"
+	exit 1
+	#./script.sh rebalance
 
 .PHONY: contribute
 contribute:
