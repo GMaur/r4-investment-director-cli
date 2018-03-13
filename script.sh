@@ -57,6 +57,13 @@ case "$1" in
         curl ${r4automator}/parse -XPOST -F "funds=@${FOLDER}/funds.html" -F "cash=@${FOLDER}/cash.html" | jq "." > ${FOLDER}/portfolio.json
         cat ${FOLDER}/portfolio.json | jq "."
         ;;
+    contribute )
+        cat ${FOLDER}/portfolio.json | jq '.assets[] | select(.type|contains ("cash"))' > ${FOLDER}/cash.json
+        echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
+        ./join_contribute_request.sh ${FOLDER}/cash.json data/$USER.json | jq "." > ${FOLDER}/contribute_request.json
+        curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/contribute_orders.json
+        cat ${FOLDER}/contribute_orders.json | jq "."
+        ;;
     rebalance )
         echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
         ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/$USER.json > ${FOLDER}/rebalance_request.json
