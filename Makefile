@@ -24,6 +24,10 @@ parse-portfolio:
 rebalance:
 	./script.sh rebalance
 
+.PHONY: contribute
+contribute:
+	./script.sh contribute
+
 .PHONY: make-operations
 make-operations:
 	./script.sh makeoperations
