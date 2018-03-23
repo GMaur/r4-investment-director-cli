@@ -57,8 +57,12 @@ case "$1" in
         curl ${r4automator}/parse -XPOST -F "funds=@${FOLDER}/funds.html" -F "cash=@${FOLDER}/cash.html" | jq "." > ${FOLDER}/portfolio.json
         cat ${FOLDER}/portfolio.json | jq "."
         ;;
-    contribute )
+    prepare-contribution )
         cat ${FOLDER}/portfolio.json | jq '.assets[] | select(.type|contains ("cash"))' > ${FOLDER}/cash.json
+        cat ${FOLDER}/cash.json | jq "."
+        echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
+        ;;
+    contribute )
         echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
         ./join_contribute_request.sh ${FOLDER}/cash.json data/$USER.json | jq "." > ${FOLDER}/contribute_request.json
         curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/contribute_orders.json
