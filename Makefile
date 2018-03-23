@@ -26,6 +26,10 @@ rebalance:
 	exit 1
 	#./script.sh rebalance
 
+.PHONY: prepare-contribution
+prepare-contribution:
+	./script.sh prepare-contribution
+
 .PHONY: contribute
 contribute:
 	./script.sh contribute
