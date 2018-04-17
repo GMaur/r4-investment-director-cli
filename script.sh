@@ -65,18 +65,18 @@ case "$1" in
     contribute )
         echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
         ./join_contribute_request.sh ${FOLDER}/cash.json data/$USER.json | jq "." > ${FOLDER}/contribute_request.json
-        curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/contribute_orders.json
-        cat ${FOLDER}/contribute_orders.json | jq "."
+        curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/new_orders.json
+        cat ${FOLDER}/new_orders.json | jq "."
         ;;
     rebalance )
         echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
         ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/$USER.json > ${FOLDER}/rebalance_request.json
-        curl ${robot_advisor}/rebalance -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_request.json -o ${FOLDER}/rebalance_orders.json
+        curl ${robot_advisor}/rebalance -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_request.json -o ${FOLDER}/new_orders.json
         cat ${FOLDER}/rebalance_orders.json | jq "."
          ;;
     makeoperations )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
-        curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_orders.json
+        curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/new_orders.json
         ;;
     endsession )
         rm ./"$session"
