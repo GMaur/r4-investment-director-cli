@@ -81,7 +81,12 @@ case "$1" in
          ;;
     makeoperations )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
-        curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/new_orders.json
+        curl ${r4automator}/operations -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/new_orders.json > ${FOLDER}/operations_result.html
+        if [ $? -eq 0 ]; then
+            echo "Making the operations was ok"
+        else
+            echo "Error with making the operations - see ${FOLDER}/operations_result.html or the IDE"
+        fi
         ;;
     endsession )
         rm ./"$session"
