@@ -45,7 +45,12 @@ case "$1" in
         ;;
     login )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
-        curl ${r4automator}/login -XPOST -H "Content-Type: application/json" -d '{"username":"AzureDiamond", "password": "hunter2", "nif": "Cthon98"}'
+        curl ${r4automator}/login -XPOST -H "Content-Type: application/json" -d '{"username":"AzureDiamond", "password": "hunter2", "nif": "Cthon98"}' > $FOLDER/login.html
+        if [ $? -eq 0 ]; then
+            echo "Login was ok"
+        else
+            echo "Error with log in - see $FOLDER/login.html"
+        fi
         ;;
     2fa )
         ./2fa.sh ;;
