@@ -68,10 +68,12 @@ case "$1" in
         echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
         ;;
     contribute )
+        set -x
         echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
         ./join_contribute_request.sh ${FOLDER}/cash.json data/$USER.json | jq "." > ${FOLDER}/contribute_request.json
         curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/new_orders.json
         cat ${FOLDER}/new_orders.json | jq "."
+        set +x
         ;;
     rebalance )
         echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
