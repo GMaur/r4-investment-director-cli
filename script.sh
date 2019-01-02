@@ -14,8 +14,8 @@ function create_new_session {
     mkdir -p $FOLDER
     rm -f "$session"
     touch "$session"
+    cp data/seed/* $FOLDER
     echo "FOLDER=$FOLDER" >> "$session"
-    echo "USER=$USER" >> "$session"
 }
 
 function read_session {
@@ -37,12 +37,8 @@ read_session
 set -e
 case "$1" in
     newsession )
-        #default_user="idealallocation"
-        #read -p "Specify the name of the user [$default_user]: " USER
-        #USER=${USER:-$default_user}
-        USER="idealallocation"
         create_new_session
-        echo "session for user $USER in $FOLDER"
+        echo "session created in $FOLDER"
         ;;
     login )
         echo "if you wish to proceed, go to the IDE to manually confirm this request"
@@ -71,14 +67,14 @@ case "$1" in
     contribute )
         set -x
         echo "For manual modifications, please go to ${FOLDER}/cash.json and edit the value"
-        ./join_contribute_request.sh ${FOLDER}/cash.json data/$USER.json | jq "." > ${FOLDER}/contribute_request.json
+        ./join_contribute_request.sh ${FOLDER}/cash.json ${FOLDER}/idealallocation.json | jq "." > ${FOLDER}/contribute_request.json
         curl ${robot_advisor}/contribute -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/contribute_request.json -o ${FOLDER}/new_orders.json
         cat ${FOLDER}/new_orders.json | jq "."
         set +x
         ;;
     rebalance )
         echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
-        ./join_rebalance_request.sh ${FOLDER}/portfolio.json data/$USER.json > ${FOLDER}/rebalance_request.json
+        ./join_rebalance_request.sh ${FOLDER}/portfolio.json ${FOLDER}/idealallocation.json > ${FOLDER}/rebalance_request.json
         curl ${robot_advisor}/rebalance -XPOST -H "Content-Type: application/json" --data-binary @${FOLDER}/rebalance_request.json -o ${FOLDER}/new_orders.json
         cat ${FOLDER}/rebalance_orders.json | jq "."
          ;;
