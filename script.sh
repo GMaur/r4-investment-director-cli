@@ -37,9 +37,10 @@ read_session
 set -e
 case "$1" in
     newsession )
-        default_user="ideal"
-        read -p "Specify the name of the user [$default_user]: " USER
-        USER=${USER:-$default_user}
+        #default_user="idealallocation"
+        #read -p "Specify the name of the user [$default_user]: " USER
+        #USER=${USER:-$default_user}
+        USER="idealallocation"
         create_new_session
         echo "session for user $USER in $FOLDER"
         ;;
