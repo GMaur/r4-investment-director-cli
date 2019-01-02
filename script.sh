@@ -72,6 +72,13 @@ case "$1" in
         cat ${FOLDER}/new_orders.json | jq "."
         set +x
         ;;
+    contribute-manually )
+        set +e
+        mv ${FOLDER}/new_orders.manual.json ${FOLDER}/new_orders.json
+        set -e
+        vim ${FOLDER}/new_orders.json
+        echo "You have finished editing the orders, manually"
+        ;;
     rebalance )
         echo "For manual modifications, please go to ${FOLDER}/portfolio.json and edit the 'cash' section"
         ./join_rebalance_request.sh ${FOLDER}/portfolio.json ${FOLDER}/idealallocation.json > ${FOLDER}/rebalance_request.json
